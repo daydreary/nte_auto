@@ -13,6 +13,7 @@ from path_utils import ScriptPath
 from module.fish.autofish import start_script
 from module.beiguo.autobeiguo import start_beiguo
 from module.car_match.autocarmatch import start_car_match
+from module.beiguo.autobeiguo_comment import start_beiguo_comment
 
 class NteAutoApp(ctk.CTk):
     def __init__(self) -> None:
@@ -211,13 +212,14 @@ class NteAutoApp(ctk.CTk):
         self.log(f"已选择设备: {serial}")
 
     def _build_feature_list(self) -> None:
-        features = ["钓鱼", "呗果", "黑暗赛车界"]
+        features = ["钓鱼", "呗果", "呗果（持续评论）", "黑暗赛车界"]
         for index, name in enumerate(features):
             button = ctk.CTkButton(
                 self._feature_list,
                 text=name,
                 anchor="w",
                 fg_color=self._feature_color(name),
+                text_color=self._feature_text_color(name),
                 command=lambda n=name: self._select_feature(n),
             )
             button.grid(row=index, column=0, sticky="ew", pady=4)
@@ -226,12 +228,20 @@ class NteAutoApp(ctk.CTk):
     def _feature_color(self, name: str) -> str | tuple[str, str]:
         if name == self._selected_feature:
             return ("#2FA572", "#106A43")
-        return ("gray84", "gray25")
+        return ("gray88", "gray28")
+
+    def _feature_text_color(self, name: str) -> tuple[str, str]:
+        if name == self._selected_feature:
+            return ("white", "white")
+        return ("gray15", "gray92")
 
     def _select_feature(self, name: str) -> None:
         self._selected_feature = name
         for feature_name, button in self._feature_buttons.items():
-            button.configure(fg_color=self._feature_color(feature_name))
+            button.configure(
+                fg_color=self._feature_color(feature_name),
+                text_color=self._feature_text_color(feature_name),
+            )
         self.log(f"已选择功能: {name}")
 
     def start_feature(self) -> None:
@@ -271,6 +281,13 @@ class NteAutoApp(ctk.CTk):
                 )
             elif feature == "呗果":
                 start_beiguo(
+                    serial,
+                    stop_event=self._stop_event,
+                    log_fn=self.log,
+                    preview_fn=self.show_preview,
+                )
+            elif feature == "呗果（持续评论）":
+                start_beiguo_comment(
                     serial,
                     stop_event=self._stop_event,
                     log_fn=self.log,
