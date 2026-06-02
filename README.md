@@ -27,9 +27,9 @@
 
    ​	- 下载zip包，解压
 
-   ​	- 执行pip install requirements.txt
+   ​	- 终端切换到项目路径，执行pip install -r requirements.txt （仅首次）
 
-   ​	- 执行python3 main.py
+   ​	- 启动，执行python3 main.py
 
 4. 左侧选择对应模拟器，选择活动，点击开始即可
 
