@@ -19,7 +19,7 @@
 
 #### windows ：
 
-- release版本：[打开发布页](https://github.com/daydreary/nte_auto/releases)
+- release版本：[发布页](https://github.com/daydreary/nte_auto/releases)，解压后双击运行
 - 源码使用：同mac
 
 #### mac：
