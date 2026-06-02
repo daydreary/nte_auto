@@ -20,7 +20,8 @@
    windows ：
 
    ​	- release版本：即将发布
-
+      - 源码使用：同mac
+        
    mac：
 
    ​	- 安装python3.x环境
