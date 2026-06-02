@@ -1,3 +1,4 @@
+import sys
 import threading
 import time
 from typing import Callable
@@ -51,6 +52,20 @@ POS_CONFIRM = (1233, 583)
 
 LEFT_TAP = (231, 869)
 RIGHT_TAP = (1637, 869)
+
+# 钓鱼进度条截图区域（窗口内 x, y, width, height）
+# macOS/Windows 截图 API 对「内容区」起点的定义不同，且模拟器顶栏高度可能不一致，故 y 需分平台校准
+_FISH_BAR_REGION_BY_PLATFORM: dict[str, tuple[int, int, int, int]] = {
+    "darwin": (593, 146, 737, 26),
+    "win32": (593, 128, 737, 26),
+}
+
+
+def _fish_bar_region() -> tuple[int, int, int, int]:
+    return _FISH_BAR_REGION_BY_PLATFORM.get(
+        sys.platform,
+        _FISH_BAR_REGION_BY_PLATFORM["darwin"],
+    )
 
 success_count = 0
 failed_count = 0
@@ -156,14 +171,15 @@ def run_steps_fishing(
     while not _should_stop(stop_event):
         start_screenshot = time.perf_counter()
 
+        bar_x, bar_y, bar_w, bar_h = _fish_bar_region()
         result_path = capture_window(
             window_id=window_id,
             fmt="png",
             name="screenshot.png",
-            x=593,
-            y=146,
-            width=737,
-            height=26,
+            x=bar_x,
+            y=bar_y,
+            width=bar_w,
+            height=bar_h,
         )
 
         end_screenshot = time.perf_counter()
