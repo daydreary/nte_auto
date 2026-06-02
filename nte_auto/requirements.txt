@@ -1,0 +1,14 @@
+# NTE Auto — Python 3.11+ 推荐
+# 安装: pip install -r requirements.txt
+
+# GUI（main.py）
+customtkinter==5.2.2
+
+# 图像处理 / 模板匹配（screen_utils、module/fish）
+Pillow==12.2.0
+opencv-python==4.13.0.92
+numpy==2.4.4
+
+# macOS 窗口截图（screen_utils/mac_screenshot.py）
+# Windows 截图使用 ctypes，无需额外 pip 包
+pyobjc-framework-Quartz==12.1; sys_platform == "darwin"
