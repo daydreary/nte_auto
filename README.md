@@ -19,7 +19,7 @@
 
 #### windows ：
 
-- release版本：即将发布
+- release版本：[打开发布页](https://github.com/daydreary/nte_auto/releases)
 - 源码使用：同mac
 
 #### mac：
