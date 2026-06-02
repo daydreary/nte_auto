@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from path_utils import ScriptPath
 
+from device_utils.subprocess_utils import run as subprocess_run
+
 
 @dataclass(frozen=True)
 class AdbDevice:
@@ -129,7 +131,7 @@ class AdbController:
         output_path = ScriptPath.get_path(filename)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         cmd = self._adb_cmd("exec-out", "screencap", "-p", device_serial=device_serial)
-        result = subprocess.run(cmd, capture_output=True, check=False)
+        result = subprocess_run(cmd, capture_output=True, check=False)
         if result.returncode != 0:
             stderr = result.stderr.decode("utf-8", errors="replace").strip()
             raise RuntimeError(f"ADB 截图失败: {stderr or result.returncode}")
@@ -233,7 +235,7 @@ class AdbController:
         global_cmd: bool = False,
     ) -> subprocess.CompletedProcess[str]:
         cmd = self._adb_cmd(*args, device_serial=device_serial, global_cmd=global_cmd)
-        result = subprocess.run(
+        result = subprocess_run(
             cmd,
             capture_output=True,
             text=True,
