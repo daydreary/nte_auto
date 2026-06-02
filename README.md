@@ -10,26 +10,28 @@
 
 ## 快速开始
 
-1. 安装模拟器和游戏，
+1. 安装模拟器和游戏
 
    - 模拟器设置为1920*1080平板
-   - 确认模拟器已启动adb（mumu模拟器为设备设置-开发者选项-ADB调试）
+   - 确认模拟器已启动adb（如mumu模拟器为设备设置-开发者选项-ADB调试）
 
-2. windows ：
+2. 程序运行
+   
+   windows ：
 
-   ​	release版本：即将发布
+   ​	- release版本：即将发布
 
    mac：
 
-   ​	安装python3.x环境
+   ​	- 安装python3.x环境
 
-   ​	下载zip包，解压
+   ​	- 下载zip包，解压
 
-   ​	执行pip install requirements.txt
+   ​	- 执行pip install requirements.txt
 
-   ​	执行python3 main.py
+   ​	- 执行python3 main.py
 
-3. 左侧选择对应模拟器，选择活动，点击开始即可
+4. 左侧选择对应模拟器，选择活动，点击开始即可
 
 | 活动       | 说明                                                   |
 | ---------- | ------------------------------------------------------ |
