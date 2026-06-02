@@ -16,20 +16,20 @@
    - 确认模拟器已启动adb（如mumu模拟器为设备设置-开发者选项-ADB调试）
 
 2. 程序运行
-   
+
    windows ：
 
-   ​	- release版本：即将发布
-      - 源码使用：同mac
-        
+   	- release版本：即将发布
+   	- 源码使用：同mac
+
    mac：
 
-   ​	- 安装python3.x环境
-   ​	- 下载zip包，解压
-   ​	- 终端切换到项目路径，执行pip install -r requirements.txt （仅首次）
-   ​	- 启动，执行python3 main.py
+   	1.安装python3.x环境
+   	2.下载zip包，解压
+   	3.终端切换到项目路径，执行pip install -r requirements.txt （仅首次）
+   	4.启动，执行python3 main.py
 
-4. 左侧选择对应模拟器，选择活动，点击开始即可
+3. 左侧选择对应模拟器，选择活动，点击开始即可
 
 | 活动       | 说明                                                   |
 | ---------- | ------------------------------------------------------ |
