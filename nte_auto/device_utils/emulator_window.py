@@ -6,10 +6,10 @@ from __future__ import annotations
 
 import re
 import shutil
-import subprocess
 import sys
 from typing import Iterable, Optional
 
+from device_utils.subprocess_utils import run as subprocess_run
 from screen_utils import screenshot
 
 if not screenshot.is_supported():
@@ -99,7 +99,7 @@ def _get_avd_name(serial: str, adb_path: str | None) -> str | None:
     adb = adb_path or shutil.which("adb")
     if not adb:
         return None
-    result = subprocess.run(
+    result = subprocess_run(
         [adb, "-s", serial, "emu", "avd", "name"],
         capture_output=True,
         text=True,
@@ -132,7 +132,7 @@ def _pids_listening_on_port(port: int) -> list[int]:
 
 def _pids_listening_on_port_mac(port: int) -> list[int]:
     try:
-        result = subprocess.run(
+        result = subprocess_run(
             ["lsof", "-nP", f"-iTCP:{port}", "-sTCP:LISTEN", "-t"],
             capture_output=True,
             text=True,
@@ -152,7 +152,7 @@ def _pids_listening_on_port_mac(port: int) -> list[int]:
 
 def _pids_listening_on_port_win(port: int) -> list[int]:
     try:
-        result = subprocess.run(
+        result = subprocess_run(
             ["netstat", "-ano", "-p", "TCP"],
             capture_output=True,
             text=True,
@@ -189,7 +189,7 @@ def _pids_with_port_in_cmdline(port: int) -> list[int]:
 
     if sys.platform == "darwin":
         try:
-            result = subprocess.run(
+            result = subprocess_run(
                 ["ps", "-A", "-o", "pid=,command="],
                 capture_output=True,
                 text=True,
@@ -225,7 +225,7 @@ def _match_cmdline_pids(lines: Iterable[str], patterns: tuple[str, ...]) -> list
 
 def _pids_with_port_in_cmdline_win(port_text: str, patterns: tuple[str, ...]) -> list[int]:
     try:
-        result = subprocess.run(
+        result = subprocess_run(
             [
                 "wmic",
                 "process",
@@ -276,7 +276,7 @@ def _pids_with_port_in_cmdline_win_powershell(port_text: str) -> list[int]:
         "Select-Object -ExpandProperty ProcessId"
     )
     try:
-        result = subprocess.run(
+        result = subprocess_run(
             ["powershell", "-NoProfile", "-Command", script],
             capture_output=True,
             text=True,
@@ -310,7 +310,7 @@ def _is_emulator_process(name: str) -> bool:
 
 def _process_name(pid: int) -> str:
     if sys.platform == "darwin":
-        result = subprocess.run(
+        result = subprocess_run(
             ["ps", "-p", str(pid), "-o", "comm="],
             capture_output=True,
             text=True,
@@ -319,7 +319,7 @@ def _process_name(pid: int) -> str:
         return result.stdout.strip() if result.returncode == 0 else ""
 
     if sys.platform == "win32":
-        result = subprocess.run(
+        result = subprocess_run(
             [
                 "tasklist",
                 "/FI",
